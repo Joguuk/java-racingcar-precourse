@@ -11,10 +11,8 @@ public class ValidationUtilsTest {
     void 다중_자동차이름_입력_실패() {
         String carNameInput = "sosoa,tete,prir";
         String[] carNames = carNameInput.split(",");
-        for (String carName : carNames) {
-            boolean isValidName = ValidationUtils.validateCarName(carName);
-            assertThat(isValidName).isFalse();
-        }
+        boolean isValidName = ValidationUtils.validateCarNames(carNames);
+        assertThat(isValidName).isFalse();
     }
 
     @Test

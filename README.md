@@ -25,3 +25,16 @@
    - ravingCarView를 통해 우승자 ,로 구분하여 출력
 8. 사용자가 잘못된 값을 입력할 경우 “[ERROR]”로 시작하는 에러 메시지를 출력 후 입력을 다시 받는다.
    - ravingCarView를 통해 ERROR 출력
+   
+
+car      /  moveRandomNumber /   moveCount
+1 2 3       4 5 6                1 1 1
+1 2 3       3 2 6                1 1 2
+1 2 3       4 3 3                2 1 2
+
+car      /  moveRandomNumber /   moveCount
+1 2 3       4 5 6                1 1 1
+
+car      /  moveRandomNumber /   moveCount
+1           4                    1
+

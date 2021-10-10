@@ -25,4 +25,8 @@ public class Car {
 
         return CarStatus.STOP;
     }
+
+    public boolean isHead(int advanceCountOfHeadCar) {
+        return this.advanceCount == advanceCountOfHeadCar;
+    }
 }

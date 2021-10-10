@@ -21,6 +21,7 @@ public class CarTest {
     void 정지_조건(int randomNumber) {
         CarStatus carStatus = car.move(randomNumber);
         assertThat(carStatus).isEqualTo(CarStatus.STOP);
+        assertThat(car.getAdvanceCount()).isEqualTo(0);
     }
 
     @ParameterizedTest
@@ -28,5 +29,6 @@ public class CarTest {
     void 전진_조건(int randomNumber) {
         CarStatus carStatus = car.move(randomNumber);
         assertThat(carStatus).isEqualTo(CarStatus.ADVANCE);
+        assertThat(car.getAdvanceCount()).isEqualTo(1);
     }
 }
