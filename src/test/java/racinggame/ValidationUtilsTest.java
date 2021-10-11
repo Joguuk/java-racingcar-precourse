@@ -9,7 +9,7 @@ public class ValidationUtilsTest {
     @Test
     @DisplayName("여러 자동차이름 입력의 실패 케이스를 테스트한다.")
     void 다중_자동차이름_입력_실패() {
-        String carNameInput = "sosoa,tete,prir";
+        String carNameInput = "sosoad,tete,prir";
         String[] carNames = carNameInput.split(",");
         boolean isValidName = ValidationUtils.validateCarNames(carNames);
         assertThat(isValidName).isFalse();
