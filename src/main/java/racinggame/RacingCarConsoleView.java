@@ -2,12 +2,15 @@ package racinggame;
 
 import java.util.List;
 
-import static racinggame.RacingCarConstants.CAR_NAME_INPUT_GUIDE_MESSAGE;
-import static racinggame.RacingCarConstants.CAR_NAME_INPUT_INVALID_ERROR_MESSAGE;
+import static racinggame.RacingCarConstants.*;
 
 public class RacingCarConsoleView {
     public void printCarNameInputGuideMessage() {
         System.out.println(CAR_NAME_INPUT_GUIDE_MESSAGE);
+    }
+
+    public void printRacingCountInputGuideMessage() {
+        System.out.println(RACING_COUNT_INPUT_GUIDE_MESSAGE);
     }
 
     public void printCarNameInputInvalidErrorMessage() {
@@ -15,13 +18,13 @@ public class RacingCarConsoleView {
     }
 
     public void printRacingCountInputInvalidMessage() {
-        System.out.println(RacingCarConstants.RACING_COUNT_INPUT_INVALID_MESSAGE);
+        System.out.println(RACING_COUNT_INPUT_INVALID_MESSAGE);
     }
 
     public void printCurrentRacingStatus(List<Car> carList) {
         System.out.println("실행 결과");
         for (Car car : carList) {
-            System.out.println(car.getCarName() + ":" + getAdvanceMark(car.getAdvanceCount()));
+            System.out.println(car.getCarName() + " : " + getAdvanceMark(car.getAdvanceCount()));
         }
     }
 
@@ -32,5 +35,9 @@ public class RacingCarConsoleView {
             advanceMark += "-";
         }
         return advanceMark;
+    }
+
+    public void printFinalWinner(String racingWinner) {
+        System.out.printf(RacingCarConstants.RACING_FINAL_WINNER_GUIDE_MESSAGE, racingWinner);
     }
 }

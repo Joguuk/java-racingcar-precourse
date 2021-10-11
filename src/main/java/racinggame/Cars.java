@@ -9,9 +9,9 @@ public class Cars {
     private final List<Car> carList;
     private final RacingCarBillboard racingCarBillboard;
 
-    public Cars() {
+    public Cars(RacingCarBillboard racingCarBillboard) {
         this.carList = new ArrayList<>();
-        this.racingCarBillboard = new RacingCarBillboard();
+        this.racingCarBillboard = racingCarBillboard;
     }
 
     public boolean createCars(String[] carNames) {
@@ -25,14 +25,10 @@ public class Cars {
         return true;
     }
 
-    public RacingCarBillboard move(List<Integer> moveRandomNumbers) {
-        for (int i = 0; i < carList.size(); i++) {
-            Car car = carList.get(i);
-            CarStatus carStatus = car.move(moveRandomNumbers.get(i));
-            racingCarBillboard.report(car, carStatus);
-        }
+    public void startRacing() {
+        moves(racingCarBillboard.getRacingCount());
 
-        return racingCarBillboard;
+        racingCarBillboard.printFianlWinner(getRacingWinner());
     }
 
     public RacingCarBillboard moves(int racingCount) {
@@ -45,6 +41,14 @@ public class Cars {
         return racingCarBillboard;
     }
 
+    public void move(List<Integer> moveRandomNumbers) {
+        for (int i = 0; i < carList.size(); i++) {
+            Car car = carList.get(i);
+            CarStatus carStatus = car.move(moveRandomNumbers.get(i));
+            racingCarBillboard.report(car, carStatus);
+        }
+    }
+
     private List<Integer> generateRandomNumberList() {
         List<Integer> randomNumberList = new ArrayList<>();
         for (int i = 0; i < carList.size(); i++) {
@@ -53,20 +57,23 @@ public class Cars {
         return randomNumberList;
     }
 
-    public String getRacingWinner(int advanceCountOfHeadCar) {
+    public String getRacingWinner() {
         String racingWinners = "";
+
         for (Car car : carList) {
-            racingWinners += car.isHead(advanceCountOfHeadCar) ? "," + car.getCarName() : "";
+            racingWinners += getHeadCarNames(car, racingWinners);
         }
+
         return racingWinners;
     }
 
-    public RacingCarBillboard moves(int racingCount, List<Integer> randomNumberList) {
-        for (int i = 0; i < racingCount; i++) {
-            move(randomNumberList);
-            racingCarBillboard.printBillboard(carList);
+    private String getHeadCarNames(Car car, String racingWinners) {
+        boolean isHead = car.isHead(racingCarBillboard.getAdvanceCountOfHeadCar());
+
+        if (isHead && racingWinners.isEmpty()){
+            return car.getCarName();
         }
 
-        return racingCarBillboard;
+        return isHead ?  "," +car.getCarName() : "";
     }
 }

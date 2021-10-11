@@ -1,5 +1,7 @@
 package racinggame;
 
+import com.sun.deploy.security.BadCertificateDialog;
+
 public class Car {
     private final String carName;
     private int advanceCount;
@@ -18,7 +20,7 @@ public class Car {
     }
 
     public CarStatus move(int moveRandomNumber) {
-        if (moveRandomNumber >= 4) {
+        if (moveRandomNumber >= RacingCarConstants.ADVANCE_BASE_NUM){
             this.advanceCount += 1;
             return CarStatus.ADVANCE;
         }
