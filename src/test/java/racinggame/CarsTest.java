@@ -15,7 +15,7 @@ public class CarsTest {
     @BeforeEach
     void setUp() {
         String carsNameInput = new String("caer,soso,qoo");
-        cars = new Cars(new RacingCarBillboard());
+        cars = new Cars();
         cars.createCars(carsNameInput.split(","));
     }
 

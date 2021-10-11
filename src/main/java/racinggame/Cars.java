@@ -12,11 +12,9 @@ import java.util.List;
  */
 public class Cars {
     private final List<Car> carList;
-    private final RacingCarBillboard racingCarBillboard;
 
-    public Cars(RacingCarBillboard racingCarBillboard) {
+    public Cars() {
         this.carList = new ArrayList<>();
-        this.racingCarBillboard = racingCarBillboard;
     }
 
     /**
@@ -39,10 +37,8 @@ public class Cars {
     /**
      * 빌보드에 입력된 레이싱 횟수 만큼 레이싱 게임을 시작한다.
      */
-    public void startRacing() {
-        moves(racingCarBillboard.getRacingCount());
-
-        racingCarBillboard.printFianlWinner(getRacingWinners());
+    public void startRacing(int racingCount) {
+        moves(racingCount);
     }
 
     /**
@@ -52,10 +48,12 @@ public class Cars {
      * @param racingCount 레이싱 횟수
      */
     public void moves(int racingCount) {
+        RacingCarConsoleView racingCarConsoleView = RacingCarConsoleView.getInstance();
+
         for (int i = 0; i < racingCount; i++) {
             List<Integer> randomNumberList = generateRandomNumberList();
             move(randomNumberList);
-            racingCarBillboard.printBillboard(carList);
+            racingCarConsoleView.printCurrentRacingStatus(carList);
         }
     }
 
@@ -69,7 +67,6 @@ public class Cars {
         for (int i = 0; i < carList.size(); i++) {
             Car car = carList.get(i);
             CarStatus carStatus = car.move(randomNumbers.get(i));
-            racingCarBillboard.checkAdvanceCountOfHeadCar(car, carStatus);
         }
     }
 
@@ -95,10 +92,23 @@ public class Cars {
         String racingWinners = "";
 
         for (Car car : carList) {
-            racingWinners += getHeadCarNames(car, racingWinners);
+            racingWinners += getLeadCarNames(car, racingWinners);
         }
 
         return racingWinners;
+    }
+
+    /**
+     * 선두차의 전진 횟수를 반환한다.
+     *
+     * @return 선두 차량의 전진 횟수
+     */
+    private int getAdvanceCountOfLeadCar() {
+        int advanceCountOfLeadCar = 0;
+        for (Car car : carList) {
+            advanceCountOfLeadCar = car.getAdvanceCount() > advanceCountOfLeadCar ? car.getAdvanceCount() : advanceCountOfLeadCar;
+        }
+        return advanceCountOfLeadCar;
     }
 
     /**
@@ -108,13 +118,13 @@ public class Cars {
      * @param racingWinners 현재 입력된 승자 자동차 이름
      * @return 선두 자동차 이름(자동차 이름이 여러 개일 경우 , 로 구분)
      */
-    private String getHeadCarNames(Car car, String racingWinners) {
-        boolean isHead = car.isHead(racingCarBillboard.getAdvanceCountOfHeadCar());
+    private String getLeadCarNames(Car car, String racingWinners) {
+        boolean isLead = car.isLead(getAdvanceCountOfLeadCar());
 
-        if (isHead && racingWinners.isEmpty()){
+        if (isLead && racingWinners.isEmpty()){
             return car.getCarName();
         }
 
-        return isHead ?  "," +car.getCarName() : "";
+        return isLead ?  "," +car.getCarName() : "";
     }
 }

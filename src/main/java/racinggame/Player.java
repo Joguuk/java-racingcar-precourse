@@ -11,13 +11,12 @@ import static racinggame.RacingCarConstants.CAR_NAME_SPLIT_DELIMITER;
  */
 public class Player {
     private RacingCarConsoleView racingCarConsoleView;
-    private RacingCarBillboard racingCarBillboard;
     private Cars cars;
+    private int racingCount;
 
     public Player() {
-        racingCarConsoleView = new RacingCarConsoleView();
-        racingCarBillboard = new RacingCarBillboard();
-        cars = new Cars(racingCarBillboard);
+        racingCarConsoleView = RacingCarConsoleView.getInstance();
+        cars = new Cars();
     }
 
     /**
@@ -39,7 +38,10 @@ public class Player {
      */
     public boolean playGame(){
         if (inputCarName() && inputRacingCount()) {
-            cars.startRacing();
+            cars.startRacing(racingCount);
+
+            racingCarConsoleView.printFinalWinner(cars.getRacingWinners());
+
             return false;
         }
         return true;
@@ -55,10 +57,12 @@ public class Player {
         racingCarConsoleView.printRacingCountInputGuideMessage();
         String racingCountInput = Console.readLine();
 
-        if (!racingCarBillboard.storeRacingCount(racingCountInput)) {
+        if (!ValidationUtils.validateRacingCount(racingCountInput)) {
             racingCarConsoleView.printRacingCountInputInvalidMessage();
             return false;
         }
+
+        racingCount = Integer.parseInt(racingCountInput);
 
         return true;
     }

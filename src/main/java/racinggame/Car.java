@@ -40,10 +40,10 @@ public class Car {
     /**
      * 선두 차량의 전진 횟수와 비교하여 자신이 선두 차량인지 반환한다.
      *
-     * @param advanceCountOfHeadCar 선두 차량의 전진 횟수
+     * @param advanceCountOfLeadCar 선두 차량의 전진 횟수
      * @return 선두 차량 여부
      */
-    public boolean isHead(int advanceCountOfHeadCar) {
-        return this.advanceCount == advanceCountOfHeadCar;
+    public boolean isLead(int advanceCountOfLeadCar) {
+        return this.advanceCount == advanceCountOfLeadCar;
     }
 }

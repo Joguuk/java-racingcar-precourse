@@ -10,6 +10,14 @@ import static racinggame.RacingCarConstants.*;
  * @since 1.0
  */
 public class RacingCarConsoleView {
+    private static final RacingCarConsoleView instance = new RacingCarConsoleView();
+
+    private RacingCarConsoleView(){}
+
+    public static RacingCarConsoleView getInstance() {
+        return instance;
+    }
+
     /**
      * 자동차 이름 입력 안내 문구를 출력한다.
      */
